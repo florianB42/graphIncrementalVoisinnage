@@ -5,8 +5,7 @@ public class Vertex {
 	private ArrayList<Float> listData = new ArrayList<Float>();
 	//category
 	
-	//////////////////////////////Getters & setters///////////////////////////////////
-
+	//////////////////////////////Cons///////////////////////////////////
 	/**
 	 * Constructor
 	 * @param idVertex
@@ -31,14 +30,35 @@ public class Vertex {
 	}
 	
 	/**
+	 * @return the size of listData
+	 */
+	public double getSizeList() {
+		return listData.size();
+	}
+	
+	/**
+	 * Gets data from the arrayList listData
+	 * @param rank
+	 * @return data stored in the rank passed in parameters
+	 */
+	public float getData(int rank) {
+		return listData.get(rank);
+	}
+	
+	/**
 	 * @param idVertex : the idVertex to set
 	 */
 	public void setIdVertex(int idVertex) {
 		this.idVertex = idVertex;
 	}
 	
-//	toString
 	//////////////////////////////Methods///////////////////////////////////
-	
-	
+	/**
+	 * Adds data to the list of data
+	 * @param dataToAdd
+	 */
+	public void addData(float dataToAdd) {
+		listData.add(dataToAdd);
+	}
+
 }
