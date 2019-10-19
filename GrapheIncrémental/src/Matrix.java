@@ -28,7 +28,7 @@ public class Matrix {
 //		else
 //			throw new Exception("Matrix_IllegalEdgeRead");
 		String stringToHash;
-		int hashcode;
+		Integer hashcode;
 		if (i < j) {
 			stringToHash = (i.toString() + j.toString());
 			hashcode = stringToHash.hashCode();
@@ -63,7 +63,7 @@ public class Matrix {
 //			throw new Exception("Matrix_IllegalEdgeCreate");
 		
 		String stringToHash;
-		int hashcode;
+		Integer hashcode;
 		if (i < j) {
 			stringToHash = (i.toString() + j.toString());
 			hashcode = stringToHash.hashCode();
@@ -75,7 +75,7 @@ public class Matrix {
 		matrix.put(hashcode, true);
 	}
 
-	public void deleteEdges(int i, int j) throws Exception {
+	public void deleteEdges(Integer i, Integer j) throws Exception {
 		/*if (i < j)
 			matrix.get(i).remove(j);
 
@@ -84,6 +84,18 @@ public class Matrix {
 
 		else
 			throw new Exception("Matrix_IllegalEdgeDelete");*/
+		String stringToHash;
+		Integer hashcode;
+		if (i < j) {
+			stringToHash = (i.toString() + j.toString());
+			hashcode = stringToHash.hashCode();
+		} else if (i > j) {
+			stringToHash = (i.toString() + j.toString());
+			hashcode = stringToHash.hashCode();
+		} else
+			throw new Exception("Matrix_IllegalEdgeCreate");
+		if (matrix.containsKey(hashcode))
+			matrix.remove(hashcode);
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -92,7 +104,7 @@ public class Matrix {
 		test.createEdges(2, 1);
 		test.createEdges(1, 2);
 		test.createEdges(1, 0);
-		//test.deleteEdges(0, 1);
+		test.deleteEdges(0, 1);
 
 		System.out.println(test.getEdges(0, 1));
 		System.out.println(test.getEdges(2, 0));
