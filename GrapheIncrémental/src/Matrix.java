@@ -1,134 +1,129 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 public class Matrix {
-	// public HashMap<PosMatrix, Boolean> matrix = new HashMap<PosMatrix,
-	// Boolean>();
-	// public HashMap<Integer, HashMap<Integer, Boolean>> matrix = new
-	// HashMap<Integer, HashMap<Integer, Boolean>>();
 	private int sizeMatrix = 0;
-	public HashMap<Integer, Boolean> matrix = new HashMap<Integer, Boolean>();
+	public Hashtable<Integer, Integer> matrix = new Hashtable<Integer, Integer>();
 
-	public Boolean getEdges(Integer i, Integer j) throws Exception {
-//		if (i < j)
-//			if (matrix.containsKey(i))
-//				if (matrix.get(i).containsKey(j))
-//					return true;
-//				else
-//					return false;
-//			else
-//				return false;
-//		else if (i > j)
-//			if (matrix.containsKey(j))
-//				if (matrix.get(j).containsKey(i))
-//					return true;
-//				else
-//					return false;
-//			else
-//				return false;
-//		else
-//			throw new Exception("Matrix_IllegalEdgeRead");
-		String stringToHash;
+	/**
+	 * @param sommet1
+	 * @param sommet2
+	 * @return
+	 */
+	private static Integer calculateHashCode(Integer sommet1, Integer sommet2) {
+		Double hashcode = (sommet1 * 0.314159265359 + sommet2 * 0.161803398875) % 100;
+		
+		return hashcode.intValue();
+	}
+
+	/**
+	 * @param sommet1
+	 * @param sommet2
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer getEdges(Integer sommet1, Integer sommet2) throws Exception {
 		Integer hashcode;
-		if (i < j) {
-			stringToHash = (i.toString() + j.toString());
-			hashcode = stringToHash.hashCode();
-		} else if (i > j) {
-			stringToHash = (i.toString() + j.toString());
-			hashcode = stringToHash.hashCode();
+		if (sommet1 < sommet2) {
+			hashcode = calculateHashCode(sommet1, sommet2);
+		} else if (sommet1 > sommet2) {
+			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
 			throw new Exception("Matrix_IllegalEdgeRead");
-		return matrix.containsKey(hashcode) ? matrix.get(hashcode) : false;
+		matrix.
+		return matrix.containsKey(hashcode) ? matrix.get(hashcode) : 0;
 
 	}
 
-	public void createEdges(Integer i, Integer j) throws Exception {
-//		String test = (i.toString() + j.toString());
-//		int tet = test.hashCode();
-//		System.out.println(tet);
-//		if (i < j)
-//			if (matrix.containsKey(i))
-//				matrix.get(i).put(j, true);
-//			else {
-//				matrix.put(i, new HashMap<Integer, Boolean>());
-//				matrix.get(i).put(j, true);
-//			}
-//		else if (i > j)
-//			if (matrix.containsKey(i))
-//				matrix.get(j).put(i, true);
-//			else {
-//				matrix.put(j, new HashMap<Integer, Boolean>());
-//				matrix.get(j).put(i, true);
-//			}
-//		else
-//			throw new Exception("Matrix_IllegalEdgeCreate");
-		
-		String stringToHash;
+	/**
+	 * @param sommet1
+	 * @param sommet2
+	 * @throws Exception
+	 */
+	public void createEdges(Integer sommet1, Integer sommet2, Integer test) throws Exception {
 		Integer hashcode;
-		if (i < j) {
-			stringToHash = (i.toString() + j.toString());
-			hashcode = stringToHash.hashCode();
-		} else if (i > j) {
-			stringToHash = (i.toString() + j.toString());
-			hashcode = stringToHash.hashCode();
+		if (sommet1 < sommet2) {
+			hashcode = calculateHashCode(sommet1, sommet2);
+		} else if (sommet1 > sommet2) {
+			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
 			throw new Exception("Matrix_IllegalEdgeCreate");
-		matrix.put(hashcode, true);
+		matrix.put(hashcode, test);
 	}
 
-	public void deleteEdges(Integer i, Integer j) throws Exception {
-		/*if (i < j)
-			matrix.get(i).remove(j);
-
-		else if (i > j)
-			matrix.get(j).remove(i);
-
-		else
-			throw new Exception("Matrix_IllegalEdgeDelete");*/
-		String stringToHash;
+	/**
+	 * @param sommet1
+	 * @param sommet2
+	 * @throws Exception
+	 */
+	public void deleteEdges(Integer sommet1, Integer sommet2) throws Exception {
 		Integer hashcode;
-		if (i < j) {
-			stringToHash = (i.toString() + j.toString());
-			hashcode = stringToHash.hashCode();
-		} else if (i > j) {
-			stringToHash = (i.toString() + j.toString());
-			hashcode = stringToHash.hashCode();
+		if (sommet1 < sommet2) {
+			hashcode = calculateHashCode(sommet1, sommet2);
+		} else if (sommet1 > sommet2) {
+			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
-			throw new Exception("Matrix_IllegalEdgeCreate");
+			throw new Exception("Matrix_IllegalEdgeDelete");
 		if (matrix.containsKey(hashcode))
 			matrix.remove(hashcode);
 	}
 
+	
 	public static void main(String[] args) throws Exception {
 		Matrix test = new Matrix();
-		test.createEdges(0, 1);
-		test.createEdges(2, 1);
-		test.createEdges(1, 2);
-		test.createEdges(1, 0);
-		test.deleteEdges(0, 1);
+		int taille = 5000;
+		ArrayList<Integer> dispertion = new ArrayList<Integer>();
 
-		System.out.println(test.getEdges(0, 1));
-		System.out.println(test.getEdges(2, 0));
-		System.out.println(test.getEdges(2, 1));
-		/*
-		 * test.matrix.put(new PosMatrix(1, 2), false); test.matrix.put(new PosMatrix(1,
-		 * 3), false); test.matrix.put(new PosMatrix(1, 2), true);
-		 * 
-		 * System.out.println(test.matrix.get(new PosMatrix(1, 2)));
-		 * System.out.println(new PosMatrix(1, 2).equals(new PosMatrix(1, 2)));
-		 */
+		for (int i = 1; i <= taille; ++i) {
+			System.out.println("construction : " + i);
+			for (int j = i + 1; j <= taille; ++j) {
+				test.createEdges(i, j, j + taille * i);
+			}
+		}
+
+		for (int i = 1; i <= taille; ++i) {
+			System.out.println("test : " + i);
+			for (int j = i + 1; j <= taille; ++j) {
+				// System.out.println(test.getEdges(i, j));
+				// System.out.println("testj : " + j);
+				if (test.getEdges(i, j) != j + taille * i)
+					throw new Exception("Matrix_Marche_pas");
+				Integer dis = (calculateHashCode(i, j)).intValue();
+				try {
+					Integer prov = dispertion.get(dis);
+					dispertion.set(dis, ++prov);
+				} catch (IndexOutOfBoundsException e) {
+					// System.out.println("eetrgret");
+					dispertion.add(dis, 1);
+				}
+
+			}
+		}
+		System.out.println("fin");
+		System.out.println(dispertion);
+		Integer min = Integer.MAX_VALUE;
+		Integer max = 0;
+		Integer moy = 0;
+
+		for (Integer i : dispertion) {
+			if (i < min)
+				min = i;
+			if (i > max)
+				max = i;
+			moy += i;
+		}
+		
+		System.out.println(max);
+		System.out.println(min);
+		System.out.println(moy/100);
+		
+		ArrayList<ArrayList<Double>> test1 = new ArrayList<ArrayList<Double>>();
+		test1.add(new ArrayList<Double>());
+		test1.get(0).add(5,2);
+		
+
 	}
+	
 }
-/*
- * class PosMatrix implements Comparable<PosMatrix> { int i; int j;
- * 
- * public PosMatrix(int i, int j) { this.i = i; this.j = j; }
- * 
- * @Override public boolean equals(Object obj) { System.out.println("eed"); if
- * (obj == null || obj.getClass() != getClass()) return false; else { }
- * PosMatrix nObj = (PosMatrix) obj; if (nObj.i == i && nObj.j == j) return
- * true; else return false; }
- * 
- * @Override public int compareTo(PosMatrix obj) { System.out.println("eed"); if
- * (obj == null) return 1; else { if (obj.i == i && obj.j == j) return 0; else
- * return 1; } } }
- */
+
