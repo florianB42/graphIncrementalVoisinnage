@@ -1,20 +1,18 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class Matrix {
 	private int sizeMatrix = 0;
-	public Hashtable<Integer, Integer> matrix = new Hashtable<Integer, Integer>();
+	public HashMap<Double, Boolean> matrix = new HashMap<Double, Boolean>();
 
 	/**
 	 * @param sommet1
 	 * @param sommet2
 	 * @return
 	 */
-	private static Integer calculateHashCode(Integer sommet1, Integer sommet2) {
+	private static Double calculateHashCode(Integer sommet1, Integer sommet2) {
 		Double hashcode = (sommet1 * 0.314159265359 + sommet2 * 0.161803398875) % 100;
-		
-		return hashcode.intValue();
+		return hashcode;
 	}
 
 	/**
@@ -23,16 +21,15 @@ public class Matrix {
 	 * @return
 	 * @throws Exception
 	 */
-	public Integer getEdges(Integer sommet1, Integer sommet2) throws Exception {
-		Integer hashcode;
+	public Boolean getEdges(Integer sommet1, Integer sommet2) throws Exception {
+		Double hashcode;
 		if (sommet1 < sommet2) {
 			hashcode = calculateHashCode(sommet1, sommet2);
 		} else if (sommet1 > sommet2) {
 			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
 			throw new Exception("Matrix_IllegalEdgeRead");
-		matrix.
-		return matrix.containsKey(hashcode) ? matrix.get(hashcode) : 0;
+		return matrix.containsKey(hashcode) ? matrix.get(hashcode) : false;
 
 	}
 
@@ -41,15 +38,15 @@ public class Matrix {
 	 * @param sommet2
 	 * @throws Exception
 	 */
-	public void createEdges(Integer sommet1, Integer sommet2, Integer test) throws Exception {
-		Integer hashcode;
+	public void createEdges(Integer sommet1, Integer sommet2) throws Exception {
+		Double hashcode;
 		if (sommet1 < sommet2) {
 			hashcode = calculateHashCode(sommet1, sommet2);
 		} else if (sommet1 > sommet2) {
 			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
 			throw new Exception("Matrix_IllegalEdgeCreate");
-		matrix.put(hashcode, test);
+		matrix.put(hashcode, true);
 	}
 
 	/**
@@ -58,7 +55,7 @@ public class Matrix {
 	 * @throws Exception
 	 */
 	public void deleteEdges(Integer sommet1, Integer sommet2) throws Exception {
-		Integer hashcode;
+		Double hashcode;
 		if (sommet1 < sommet2) {
 			hashcode = calculateHashCode(sommet1, sommet2);
 		} else if (sommet1 > sommet2) {
@@ -69,6 +66,11 @@ public class Matrix {
 			matrix.remove(hashcode);
 	}
 
+	/*
+	public static void main(String[] args) throws Exception {
+		Matrix test = new Matrix();
+
+	}
 	
 	public static void main(String[] args) throws Exception {
 		Matrix test = new Matrix();
@@ -120,10 +122,10 @@ public class Matrix {
 		
 		ArrayList<ArrayList<Double>> test1 = new ArrayList<ArrayList<Double>>();
 		test1.add(new ArrayList<Double>());
-		test1.get(0).add(5,2);
+		//test1.get(0).add(5,2);
 		
 
-	}
+	}*/
 	
 }
 
