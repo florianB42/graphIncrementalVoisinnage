@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Vertex {
 	private int idVertex;
 	private ArrayList<Float> listData = new ArrayList<Float>();
-	//category
+	String category;
 	
 	//////////////////////////////Cons///////////////////////////////////
 	/**
@@ -45,11 +45,26 @@ public class Vertex {
 		return listData.get(rank);
 	}
 	
+	
 	/**
 	 * @param idVertex : the idVertex to set
 	 */
 	public void setIdVertex(int idVertex) {
 		this.idVertex = idVertex;
+	}
+	
+	/**
+	 * @param category : the category to set
+	 */
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	/**
+	 * @return the category in String
+	 */
+	public String getCategory() {
+		return category;
 	}
 	
 	//////////////////////////////Methods///////////////////////////////////
@@ -60,5 +75,9 @@ public class Vertex {
 	public void addData(float dataToAdd) {
 		listData.add(dataToAdd);
 	}
-
+	
+	@Override
+	public String toString() {
+		return "id = " + idVertex + "; liste : " + listData.toString() + "; " + category;
+	}
 }

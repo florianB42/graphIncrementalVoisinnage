@@ -6,13 +6,19 @@ public class Graph {
     ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
     
     //////////////////////////////Cons/////////////////////////////////
+    
+    public Graph() {
+		this.matrix = new Matrix();
+		this.listVertex = new ArrayList<Vertex>();
+    }
+    
 	/**
 	 * Constructor
 	 * @param matrix
 	 * @param listVertex
 	 */
 	public Graph(Matrix matrix, ArrayList<Vertex> listVertex) {
-		this.matrix = new Matrix();
+		this.matrix = matrix;
 		this.listVertex = listVertex;
 	}
 	////////////////////////////// Getters ///////////////////////////////////

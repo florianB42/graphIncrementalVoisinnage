@@ -1,4 +1,4 @@
-package parseur;
+package parser;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -25,23 +25,27 @@ public class Parser {
 
 	public String readLigne() throws IOException {
 		ligne = buff.readLine();
+		if (ligne != null) {
+			newSeparator = -1;
+			parserNext();
+		}
 		return ligne;
 	}
-	
-	public Float parserFloat() throws NumberFormatException{
-		Float value = Float.parseFloat(ligne.substring(oldSeparatorFound + 1, newSeparator));
+
+	public Float parserFloat() throws NumberFormatException {
+		Float value = Float.parseFloat(ligne.substring(oldSeparatorFound, newSeparator));
 		return value;
 	}
-	
-	public String parserString(){
-		String value = ligne.substring(oldSeparatorFound + 1, newSeparator);
+
+	public String parserString() {
+		String value = ligne.substring(oldSeparatorFound, newSeparator);
 		return value;
 	}
-	
-	public Boolean parserNext() {
+
+	public void parserNext() {
+		oldSeparatorFound = newSeparator + 1;
 		newSeparator = ligne.indexOf(separator, oldSeparatorFound);
 		if (newSeparator == -1)
-			return false;
-		return true;
+			newSeparator = ligne.length();
 	}
 }
