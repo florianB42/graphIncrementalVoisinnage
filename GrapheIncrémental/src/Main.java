@@ -17,7 +17,23 @@ public class Main {
 				graph.addVertex(vertex);
 				++idVertex;
 			}
+			Integer vertex1;
+			Integer vertex2;
+			for (int i = 0; i < 500; ++i) {
+				do {				
+					vertex1 = (int) (Math.random()*1000 %idVertex);
+					vertex2 = (int) (Math.random()*1000 %idVertex);
+					System.out.println(i);
+				}while (vertex1 == vertex2 || graph.getEdge(vertex1, vertex2) != null);
+				
+				graph.createEdge(vertex1,vertex2);
+			}
+
+			opGraph.writeTulipFile(graph);
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

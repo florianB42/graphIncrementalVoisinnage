@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map.Entry;
 
 import parser.Parser;
 
@@ -46,14 +49,15 @@ public class OperationsGraph {
 
 	/**
 	 * read a new vertex in the file
-	 * @param parser the parser who is use to read the file
+	 * 
+	 * @param parser   the parser who is use to read the file
 	 * @param idVertex the id of he new vertex
 	 * @return the new vertex
 	 */
 	public Vertex readNewVertex(Parser parser, Integer idVertex) {
 		try {
 			Vertex vertex = new Vertex(idVertex);
-			if(parser.readLigne() == null) {
+			if (parser.readLigne() == null) {
 				return null;
 			}
 			for (int i = 0; i < 4; ++i) {
@@ -68,4 +72,27 @@ public class OperationsGraph {
 		}
 		return null;
 	}
+
+	public void writeTulipFile(Graph graph) {
+		try {
+			File file = new File("D:\\Polytech\\4A-S7\\projet\\graph.TLP");
+			file.createNewFile();
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write("(tlp \"2.3\" \n");
+			fileWriter.write("(nb_nodes " + (graph.getNbVertices() + 1) + ")\n");
+			fileWriter.write("(nodes 0.." + graph.getNbVertices() + ")\n");
+			Integer indexEdge = 0;
+			for (Entry<Double, Edge> edge : graph.getMatrix().getHashSet()) {
+				fileWriter.write("(edge " + indexEdge + " " + edge.getValue().getVertex1() + " "
+						+ edge.getValue().getVertex2() + ")\n");
+				++indexEdge;
+			}
+
+			fileWriter.write(")\n");
+
+			fileWriter.close();
+		} catch (Exception e) {
+		}
+	}
+
 }

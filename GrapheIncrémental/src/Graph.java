@@ -57,4 +57,12 @@ public class Graph {
 	public void addVertex(Vertex vertexToAdd) {
 		listVertex.add(vertexToAdd);
 	}
+	
+	public void createEdge(Integer idVertex1, Integer idVertex2) throws Exception {
+		matrix.createEdges(idVertex1, idVertex2);
+	}
+	
+	public Edge getEdge(Integer idVertex1, Integer idVertex2) throws Exception {
+		return matrix.getEdges(idVertex1, idVertex2);
+	}
 }

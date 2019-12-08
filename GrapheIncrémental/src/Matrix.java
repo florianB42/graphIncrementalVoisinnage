@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class Matrix {
 	private int sizeMatrix = 0;
-	public HashMap<Double, Boolean> matrix = new HashMap<Double, Boolean>();
+	public HashMap<Double, Edge> matrix = new HashMap<Double, Edge>();
 
 	/**
 	 * @param sommet1
@@ -21,7 +23,7 @@ public class Matrix {
 	 * @return
 	 * @throws Exception
 	 */
-	public Boolean getEdges(Integer sommet1, Integer sommet2) throws Exception {
+	public Edge getEdges(Integer sommet1, Integer sommet2) throws Exception {
 		Double hashcode;
 		if (sommet1 < sommet2) {
 			hashcode = calculateHashCode(sommet1, sommet2);
@@ -29,7 +31,7 @@ public class Matrix {
 			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
 			throw new Exception("Matrix_IllegalEdgeRead");
-		return matrix.containsKey(hashcode) ? matrix.get(hashcode) : false;
+		return matrix.containsKey(hashcode) ? matrix.get(hashcode) : null;
 
 	}
 
@@ -46,7 +48,7 @@ public class Matrix {
 			hashcode = calculateHashCode(sommet2, sommet1);
 		} else
 			throw new Exception("Matrix_IllegalEdgeCreate");
-		matrix.put(hashcode, true);
+		matrix.put(hashcode, new Edge(sommet1, sommet2));
 	}
 
 	/**
@@ -64,6 +66,10 @@ public class Matrix {
 			throw new Exception("Matrix_IllegalEdgeDelete");
 		if (matrix.containsKey(hashcode))
 			matrix.remove(hashcode);
+	}
+	
+	public Set<Entry<Double, Edge>> getHashSet() {
+		return matrix.entrySet();
 	}
 
 	/*
