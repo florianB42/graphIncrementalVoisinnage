@@ -1,27 +1,48 @@
 
 public class Edge {
-	Integer vertex1;
-	Integer vertex2;	
+	Integer idVertex1;
+	Integer idVertex2;	
 	
-	public Edge(Integer vertex1, Integer vertex2) {
-		this.vertex1 = vertex1;
-		this.vertex2 = vertex2;
+	/**
+	 * builder
+	 * @param idVertex1
+	 * @param idVertex2
+	 */
+	public Edge(Integer idVertex1, Integer idVertex2) {
+		this.idVertex1 = idVertex1;
+		this.idVertex2 = idVertex2;
 	}
 	
-	public Integer getVertex1() {
-		return vertex1;
+	/**
+	 * getter of idVertex1
+	 * @return idVertex1
+	 */
+	public Integer getIdVertex1() {
+		return idVertex1;
 	}
 	
-	public void setVertex1(Integer vertex1) {
-		this.vertex1 = vertex1;
+	/**
+	 * set idVertex1 at value of idVertex1
+	 * @param idVertex1
+	 */
+	public void setIdVertex1(Integer idVertex1) {
+		this.idVertex1 = idVertex1;
 	}
 	
-	public Integer getVertex2() {
-		return vertex2;
+	/**
+	 * getter of idVertex2
+	 * @return idVertex2
+	 */
+	public Integer getIdVertex2() {
+		return idVertex2;
 	}
 	
-	public void setVertex2(Integer vertex2) {
-		this.vertex2 = vertex2;
+	/**
+	 * set idVertex2 at value of idVertex2
+	 * @param idVertex2
+	 */
+	public void setIdVertex2(Integer idVertex2) {
+		this.idVertex2 = idVertex2;
 	}
 
 	

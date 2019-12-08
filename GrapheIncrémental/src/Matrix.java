@@ -1,11 +1,10 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.Set;
 
 public class Matrix {
-	private int sizeMatrix = 0;
-	public HashMap<Double, Edge> matrix = new HashMap<Double, Edge>();
+	//private int sizeMatrix = 0;
+	private HashMap<Double, Edge> matrix = new HashMap<Double, Edge>();
 
 	/**
 	 * @param sommet1

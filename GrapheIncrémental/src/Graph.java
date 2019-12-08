@@ -2,11 +2,16 @@ import java.util.ArrayList;
 
 public class Graph {
 
+	/**
+	 * matrix of edge
+	 */
 	Matrix matrix; 
     ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
     
     //////////////////////////////Cons/////////////////////////////////
-    
+    /**
+     * build an empty graph
+     */
     public Graph() {
 		this.matrix = new Matrix();
 		this.listVertex = new ArrayList<Vertex>();
@@ -54,14 +59,31 @@ public class Graph {
 	}
 	
 	////////////////////////////// Methods ///////////////////////////////////
+	/**
+	 * 
+	 * @param vertexToAdd
+	 */
 	public void addVertex(Vertex vertexToAdd) {
 		listVertex.add(vertexToAdd);
 	}
 	
+	/**
+	 * create edge if edge between idVertex1 and idVertex2 don't exist
+	 * @param idVertex1
+	 * @param idVertex2
+	 * @throws Exception @see Matrix.createEdges
+	 */
 	public void createEdge(Integer idVertex1, Integer idVertex2) throws Exception {
 		matrix.createEdges(idVertex1, idVertex2);
 	}
 	
+	/**
+	 * Get edge between idVertex1 and idVertex2
+	 * @param idVertex1
+	 * @param idVertex2
+	 * @return edge or null if they no have edge
+	 * @throws Exception @see Matrix.getEdges
+	 */
 	public Edge getEdge(Integer idVertex1, Integer idVertex2) throws Exception {
 		return matrix.getEdges(idVertex1, idVertex2);
 	}

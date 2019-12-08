@@ -73,6 +73,10 @@ public class OperationsGraph {
 		return null;
 	}
 
+	/**
+	 * write the graph "graph" in a file with compatible format for tulipe
+	 * @param graph to write in a file
+	 */
 	public void writeTulipFile(Graph graph) {
 		try {
 			File file = new File("D:\\Polytech\\4A-S7\\projet\\graph.TLP");
@@ -83,8 +87,8 @@ public class OperationsGraph {
 			fileWriter.write("(nodes 0.." + graph.getNbVertices() + ")\n");
 			Integer indexEdge = 0;
 			for (Entry<Double, Edge> edge : graph.getMatrix().getHashSet()) {
-				fileWriter.write("(edge " + indexEdge + " " + edge.getValue().getVertex1() + " "
-						+ edge.getValue().getVertex2() + ")\n");
+				fileWriter.write("(edge " + indexEdge + " " + edge.getValue().getIdVertex1() + " "
+						+ edge.getValue().getIdVertex2() + ")\n");
 				++indexEdge;
 			}
 
