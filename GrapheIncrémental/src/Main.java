@@ -19,7 +19,8 @@ public class Main {
 			}
 			Integer vertex1;
 			Integer vertex2;
-			for (int i = 0; i < 500; ++i) {
+			opGraph.constructRNG(graph);
+			/*for (int i = 0; i < 500; ++i) {
 				do {				
 					vertex1 = (int) (Math.random()*1000 %idVertex);
 					vertex2 = (int) (Math.random()*1000 %idVertex);
@@ -27,7 +28,7 @@ public class Main {
 				}while (vertex1 == vertex2 || graph.getEdge(vertex1, vertex2) != null);
 				
 				graph.createEdge(vertex1,vertex2);
-			}
+			}*/
 
 			opGraph.writeTulipFile(graph);
 		} catch (FileNotFoundException e) {
