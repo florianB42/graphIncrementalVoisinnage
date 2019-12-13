@@ -10,7 +10,7 @@ public class Main {
 		Integer idVertex = 0;
 		Parser parser;
 		try {
-			parser = new Parser("D:\\Téléchargement\\iris.Data", ",");
+			parser = new Parser("D:\\Polytech\\4A-S7\\projet\\wine.Data", ",");
 
 			while ((vertex = opGraph.readNewVertex(parser, idVertex)) != null) {
 				System.out.println(vertex);

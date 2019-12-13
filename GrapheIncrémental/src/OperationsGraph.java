@@ -115,6 +115,7 @@ public class OperationsGraph {
 				 * parser.parserNext(); } vertex.setCategory(parser.parserString()); return
 				 * vertex;
 				 */
+				parser.parserNext();
 			do {
 				try {
 					vertex.addData(parser.parserFloat());
