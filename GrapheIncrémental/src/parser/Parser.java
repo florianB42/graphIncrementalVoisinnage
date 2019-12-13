@@ -23,7 +23,7 @@ public class Parser {
 		this.separator = separator;
 	}
 
-	public String readLigne() throws IOException {
+	public String readLigne() throws Exception {
 		ligne = buff.readLine();
 		if (ligne != null) {
 			newSeparator = -1;
@@ -42,10 +42,16 @@ public class Parser {
 		return value;
 	}
 
-	public void parserNext() {
+	public Boolean parserNext(){
 		oldSeparatorFound = newSeparator + 1;
+		if (oldSeparatorFound == ligne.length() + 1) {
+			return false;
+		}
 		newSeparator = ligne.indexOf(separator, oldSeparatorFound);
-		if (newSeparator == -1)
+		if (newSeparator == -1) {
 			newSeparator = ligne.length();
+		}
+		
+		return true;
 	}
 }

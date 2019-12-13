@@ -23,35 +23,48 @@ public class OperationsGraph {
 
 		for (int vertexIndex1 = 0; vertexIndex1 < graph.getNbVertices(); vertexIndex1++) {
 			for (int vertexIndex2 = vertexIndex1 + 1; vertexIndex2 < graph.getNbVertices(); vertexIndex2++) {
+				draw = true;
 				for (int i = 0; i < graph.getNbVertices(); i++) {
 					if (i == vertexIndex1 || i == vertexIndex2) {
-						i++;
+						continue;
 					}
 					if (i > vertexIndex1 && i > vertexIndex2) {
 						if (arrayDist[vertexIndex1][vertexIndex2] > arrayDist[vertexIndex1][i]
 								&& arrayDist[vertexIndex1][vertexIndex2] > arrayDist[vertexIndex2][i]) {
 							draw = false;
+							break;
 						}
 					}
 					if (i > vertexIndex1 && i < vertexIndex2) {
 						if (arrayDist[vertexIndex1][vertexIndex2] > arrayDist[vertexIndex1][i]
 								&& arrayDist[vertexIndex1][vertexIndex2] > arrayDist[i][vertexIndex2]) {
 							draw = false;
+							break;
 						}
 					}
 					if (i < vertexIndex1 && i < vertexIndex2) {
 						if (arrayDist[vertexIndex1][vertexIndex2] > arrayDist[i][vertexIndex1]
 								&& arrayDist[vertexIndex1][vertexIndex2] > arrayDist[i][vertexIndex2]) {
 							draw = false;
+							break;
 						}
 					}
 					if (i < vertexIndex1 && i > vertexIndex2) {
 						if (arrayDist[vertexIndex1][vertexIndex2] > arrayDist[i][vertexIndex1]
 								&& arrayDist[vertexIndex1][vertexIndex2] > arrayDist[vertexIndex2][i]) {
 							draw = false;
+							break;
 						}
 					}
 
+				}
+				if (draw) {
+					try {
+						graph.createEdge(vertexIndex1, vertexIndex2);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 		}
@@ -97,15 +110,25 @@ public class OperationsGraph {
 			Vertex vertex = new Vertex(idVertex);
 			if (parser.readLigne() == null) {
 				return null;
-			}
-			for (int i = 0; i < 4; ++i) {
-				vertex.addData(parser.parserFloat());
-				parser.parserNext();
-			}
-			vertex.setCategory(parser.parserString());
+			} /*
+				 * for (int i = 0; i < 4; ++i) { vertex.addData(parser.parserFloat());
+				 * parser.parserNext(); } vertex.setCategory(parser.parserString()); return
+				 * vertex;
+				 */
+			do {
+				try {
+					vertex.addData(parser.parserFloat());
+				} catch (NumberFormatException e) {
+					vertex.setCategory(parser.parserString());
+				}
+			} while (parser.parserNext());
 			return vertex;
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO end line
 			e.printStackTrace();
 		}
 		return null;
