@@ -99,14 +99,39 @@ public class OperationsGraph {
 	}
 
 	/**
+	 * 
+	 * @param graph
+	 * @throws IOException for readLigne
+	 */
+	public void readMaxMinValueGraph(Parser parser, Graph graph) throws IOException {
+		while (parser.readLigne() != null) {
+			try {
+				Integer numData = 0;
+				parser.parserNext();
+				do {
+					graph.setVertexDataMax(numData, parser.parserFloat());
+					graph.setVertexDataMin(numData, parser.parserFloat());
+					numData++;
+				} while (parser.parserNext());
+
+			} catch (Exception e) {
+				// TODO end line
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
 	 * read a new vertex in the file
 	 * 
 	 * @param parser   the parser who is use to read the file
 	 * @param idVertex the id of he new vertex
 	 * @return the new vertex
 	 */
-	public Vertex readNewVertex(Parser parser, Integer idVertex) {
+	public Vertex readNewVertex(Parser parser, Integer idVertex, Graph graph) {
 		try {
+			Float newValue = (float) 0.0;
+			Integer numData = 0;
 			Vertex vertex = new Vertex(idVertex);
 			if (parser.readLigne() == null) {
 				return null;
@@ -115,10 +140,14 @@ public class OperationsGraph {
 				 * parser.parserNext(); } vertex.setCategory(parser.parserString()); return
 				 * vertex;
 				 */
-				parser.parserNext();
+			vertex.setCategory(parser.parserString());
+			parser.parserNext();
 			do {
 				try {
-					vertex.addData(parser.parserFloat());
+					newValue = (parser.parserFloat() - graph.getVertexDataMin(numData))
+							/ (graph.getVertexDataMax(numData) - graph.getVertexDataMin(numData));
+					vertex.addData(newValue);
+					numData++;
 				} catch (NumberFormatException e) {
 					vertex.setCategory(parser.parserString());
 				}
@@ -146,15 +175,33 @@ public class OperationsGraph {
 			file.createNewFile();
 			FileWriter fileWriter = new FileWriter(file);
 			fileWriter.write("(tlp \"2.3\" \n");
-			fileWriter.write("(nb_nodes " + (graph.getNbVertices() + 1) + ")\n");
-			fileWriter.write("(nodes 0.." + graph.getNbVertices() + ")\n");
+			fileWriter.write("(nb_nodes " + (graph.getNbVertices()) + ")\n");
+			fileWriter.write("(nodes 0.." + (graph.getNbVertices()-1) + ")\n");
 			Integer indexEdge = 0;
 			for (Entry<Double, Edge> edge : graph.getMatrix().getHashSet()) {
 				fileWriter.write("(edge " + indexEdge + " " + edge.getValue().getIdVertex1() + " "
 						+ edge.getValue().getIdVertex2() + ")\n");
 				++indexEdge;
 			}
-
+			
+			/*(property 0 string "viewLabel"
+					  (default "" "" )
+					  (node 1 "Hello")
+					  (node 2 "Bonjour")
+					  (node 3 "Bye")
+					  (edge 2 "Aurevoir")
+					)*/
+			fileWriter.write("(property 0 string \"viewLabel\"\n"
+					+ "(default \"\" \"\" )\n");
+			for (Vertex vertex : graph.getListVertex()) {
+				fileWriter.write("(node " + vertex.getIdVertex() + " \"" + vertex.getCategory() + "\")\n");
+			}
+			fileWriter.write(")\n");
+			
+			fileWriter.write("(property 0 string \"viewLabelPosition\"\n"
+					+ "(default \"1\" )\n"
+					+ ")\n");
+			
 			fileWriter.write(")\n");
 
 			fileWriter.close();

@@ -8,11 +8,15 @@ public class Main {
 		OperationsGraph opGraph = new OperationsGraph();
 		Vertex vertex;
 		Integer idVertex = 0;
+		Parser parserMM;
 		Parser parser;
 		try {
+			parserMM = new Parser("D:\\Polytech\\4A-S7\\projet\\wine.Data", ",");
 			parser = new Parser("D:\\Polytech\\4A-S7\\projet\\wine.Data", ",");
 
-			while ((vertex = opGraph.readNewVertex(parser, idVertex)) != null) {
+			opGraph.readMaxMinValueGraph(parserMM, graph);
+			
+			while ((vertex = opGraph.readNewVertex(parser, idVertex, graph)) != null) {
 				System.out.println(vertex);
 				graph.addVertex(vertex);
 				++idVertex;
@@ -20,15 +24,6 @@ public class Main {
 			Integer vertex1;
 			Integer vertex2;
 			opGraph.constructRNG(graph);
-			/*for (int i = 0; i < 500; ++i) {
-				do {				
-					vertex1 = (int) (Math.random()*1000 %idVertex);
-					vertex2 = (int) (Math.random()*1000 %idVertex);
-					System.out.println(i);
-				}while (vertex1 == vertex2 || graph.getEdge(vertex1, vertex2) != null);
-				
-				graph.createEdge(vertex1,vertex2);
-			}*/
 
 			opGraph.writeTulipFile(graph);
 		} catch (FileNotFoundException e) {
