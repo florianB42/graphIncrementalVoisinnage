@@ -5,10 +5,10 @@ public class Graph {
 	/**
 	 * matrix of edge
 	 */
-	Matrix matrix; 
-    ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
-    ArrayList<Float> listVertexDataMax = new ArrayList<Float>();
-    ArrayList<Float> listVertexDataMin = new ArrayList<Float>();
+	private Matrix matrix; 
+	private ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
+	private ArrayList<Float> listVertexDataMax = new ArrayList<Float>();
+	private ArrayList<Float> listVertexDataMin = new ArrayList<Float>();
     
     //////////////////////////////Cons/////////////////////////////////
     /**
@@ -120,5 +120,14 @@ public class Graph {
 			listVertexDataMin.add(numData, newValue);	
 		else if (newValue < listVertexDataMin.get(numData))
 			listVertexDataMin.set(numData, newValue);	
+	}
+	
+	public ArrayList<Vertex> getNeighbour(Vertex vertex) {
+		ArrayList<Vertex> neighbour = new ArrayList<Vertex>();
+		for (Vertex vertexOfList : listVertex) {
+			if (matrix.getEdges(vertex.getIdVertex(), vertexOfList.getIdVertex()) != null)
+				neighbour.add(vertexOfList);
+		}
+		return neighbour;
 	}
 }

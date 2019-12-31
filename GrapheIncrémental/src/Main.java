@@ -19,11 +19,10 @@ public class Main {
 			while ((vertex = opGraph.readNewVertex(parser, idVertex, graph)) != null) {
 				System.out.println(vertex);
 				graph.addVertex(vertex);
+				Graph subGraph = opGraph.extractSubgraph(graph, opGraph.findNearest(vertex, graph));
 				++idVertex;
 			}
-			Integer vertex1;
-			Integer vertex2;
-			opGraph.constructRNG(graph);
+			//opGraph.constructRNG(graph);
 
 			opGraph.writeTulipFile(graph);
 		} catch (FileNotFoundException e) {
