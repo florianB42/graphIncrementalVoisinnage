@@ -16,12 +16,17 @@ public class Main {
 
 			opGraph.readMaxMinValueGraph(parserMM, graph);
 			
+			vertex = opGraph.readNewVertex(parser, idVertex, graph);
+			graph.addVertex(vertex);
+			++idVertex;
+			
 			while ((vertex = opGraph.readNewVertex(parser, idVertex, graph)) != null) {
-				System.out.println(vertex);
-				graph.addVertex(vertex);
+		System.out.println(vertex);
 				Graph subGraph = opGraph.extractSubgraph(graph, opGraph.findNearest(vertex, graph));
 				subGraph.addVertex(vertex);
+		System.out.println(subGraph.getListVertex());
 				opGraph.constructRNG(subGraph);
+				graph.addVertex(vertex);
 				opGraph.mergeSubgraph(graph, subGraph);
 				++idVertex;
 			}

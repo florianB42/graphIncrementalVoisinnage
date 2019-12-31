@@ -124,14 +124,14 @@ public class OperationsGraph {
 			newNeighbour = new ArrayList<Vertex>();
 			for(Vertex vertex : neighbour) {
 				newNeighbour.addAll(graph.getNeighbour(vertex));
-				if(!graph.getListVertex().contains(vertex))
+				if(!subGraph.getListVertex().contains(vertex))
 					subGraph.addVertex(vertex);
 			}
 			neighbour = newNeighbour;
 		}
 		
 		for(Vertex vertex : neighbour) {
-			if(!graph.getListVertex().contains(vertex))
+			if(!subGraph.getListVertex().contains(vertex))
 				subGraph.addVertex(vertex);
 		}
 		return subGraph;

@@ -78,6 +78,6 @@ public class Vertex {
 	
 	@Override
 	public String toString() {
-		return "id = " + idVertex + "; liste : " + listData.toString() + "; " + category;
+		return "id = " + idVertex /*+ "; liste : " + listData.toString()*/ + "; " + category;
 	}
 }
