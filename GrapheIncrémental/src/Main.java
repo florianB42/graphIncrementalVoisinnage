@@ -20,6 +20,9 @@ public class Main {
 				System.out.println(vertex);
 				graph.addVertex(vertex);
 				Graph subGraph = opGraph.extractSubgraph(graph, opGraph.findNearest(vertex, graph));
+				subGraph.addVertex(vertex);
+				opGraph.constructRNG(subGraph);
+				opGraph.mergeSubgraph(graph, subGraph);
 				++idVertex;
 			}
 			//opGraph.constructRNG(graph);
