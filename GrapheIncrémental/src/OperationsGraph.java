@@ -9,6 +9,10 @@ import parser.Parser;
 public class OperationsGraph {
 
 	////////////////////////////// Methods///////////////////////////////////
+	/**
+	 * 
+	 * @param graph : a graph without edges
+	 */
 	public void constructRNG(Graph graph) {
 		// an array that stores distances between vertices
 		double[][] arrayDist = new double[graph.getNbVertices()][graph.getNbVertices()];
@@ -18,8 +22,7 @@ public class OperationsGraph {
 						graph.getVertexFromList(vertexIndex2));
 			}
 		}
-		// TODO : choose the edge to draw ...
-
+		// choose the edge to draw ...
 		boolean draw = true;
 
 		for (int vertexIndex1 = 0; vertexIndex1 < graph.getNbVertices(); vertexIndex1++) {
@@ -71,8 +74,23 @@ public class OperationsGraph {
 		}
 	}
 
+	/**
+	 * This method search the nearest vertex from "vertex"
+	 * 
+	 * @param vertex
+	 * @param graph
+	 * @return the nearest vertex from "vertex"
+	 */
 	public Vertex findNearest(Vertex vertex, Graph graph) {
-		return vertex;
+		double MinDist = Double.MAX_VALUE;
+		Vertex nearestVertex = null;
+		for (Vertex vertexLoop : graph.getListVertex()) {
+			if (calculDist(vertex, vertexLoop) < MinDist) {
+				MinDist = calculDist(vertex, vertexLoop);
+				nearestVertex = vertexLoop;
+			}
+		}
+		return nearestVertex;
 	}
 
 	/**
@@ -80,7 +98,7 @@ public class OperationsGraph {
 	 * 
 	 * @param vertex1
 	 * @param vertex2
-	 * @return the distance
+	 * @return the distance between "vertex1" and "vertex2"
 	 */
 	public double calculDist(Vertex vertex1, Vertex vertex2) {
 		double distance, somme = 0;
@@ -91,6 +109,11 @@ public class OperationsGraph {
 		return distance;
 	}
 
+	/**
+	 * 
+	 * @param graph
+	 * @param nearestVertex
+	 */
 	public Graph extractSubgraph(Graph graph, Vertex nearestVertex) {
 		Graph subGraph = new Graph();
 		Integer nvoisinage = 2;
@@ -114,8 +137,31 @@ public class OperationsGraph {
 		return subGraph;
 	}
 
-	void mergeSubgraph(Graph mainGraph, Graph subGraph) {
-		// TODO
+	/**
+	 * 
+	 * @param mainGraph
+	 * @param subGraph
+	 */
+	public void mergeSubgraph(Graph mainGraph, Graph subGraph) {
+		for (Vertex vertex1 : subGraph.getListVertex()) {
+			for (Vertex vertex2 : subGraph.getListVertex()) {
+				try {
+					// we delete from the main graph the old edges whom vertices are in common with
+					// the subgraph vertices
+					mainGraph.deleteEdge(vertex1.getIdVertex(), vertex2.getIdVertex());
+				} catch (Exception e) {
+					// Nothing to do
+				}
+			}
+		}
+		for (Entry<Double, Edge> edge : subGraph.getMatrix().getHashSet()) {
+			try {
+				// we copy the same edges of the subgraph in the main graph
+				mainGraph.createEdge(edge.getValue().getIdVertex1(), edge.getValue().getIdVertex2());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
@@ -196,7 +242,7 @@ public class OperationsGraph {
 			FileWriter fileWriter = new FileWriter(file);
 			fileWriter.write("(tlp \"2.3\" \n");
 			fileWriter.write("(nb_nodes " + (graph.getNbVertices()) + ")\n");
-			fileWriter.write("(nodes 0.." + (graph.getNbVertices()-1) + ")\n");
+			fileWriter.write("(nodes 0.." + (graph.getNbVertices() - 1) + ")\n");
 			Integer indexEdge = 0;
 			for (Entry<Double, Edge> edge : graph.getMatrix().getHashSet()) {
 				fileWriter.write("(edge " + indexEdge + " " + edge.getValue().getIdVertex1() + " "

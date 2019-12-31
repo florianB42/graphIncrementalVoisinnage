@@ -1,16 +1,17 @@
 import java.util.ArrayList;
 
 public class Graph {
+    //////////////////////////////Attributes/////////////////////////////////
 
 	/**
-	 * matrix of edge
+	 * matrix of edges
 	 */
 	private Matrix matrix; 
 	private ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
 	private ArrayList<Float> listVertexDataMax = new ArrayList<Float>();
 	private ArrayList<Float> listVertexDataMin = new ArrayList<Float>();
     
-    //////////////////////////////Cons/////////////////////////////////
+    //////////////////////////////Cons///////////////////////////////////////
     /**
      * build an empty graph
      */
@@ -88,6 +89,16 @@ public class Graph {
 	 */
 	public Edge getEdge(Integer idVertex1, Integer idVertex2) throws Exception {
 		return matrix.getEdges(idVertex1, idVertex2);
+	}
+	
+	/**
+	 * This method deletes the edge between 2 vertices
+	 * @param idVertex1
+	 * @param idVertex2
+	 * @throws Exception
+	 */
+	public void deleteEdge(Integer idVertex1, Integer idVertex2) throws Exception {
+		matrix.deleteEdges(idVertex1, idVertex2);
 	}
 	
 	public Float getVertexDataMax(Integer numData) {
