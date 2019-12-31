@@ -7,6 +7,8 @@ public class Graph {
 	 */
 	Matrix matrix; 
     ArrayList<Vertex> listVertex = new ArrayList<Vertex>();
+    ArrayList<Float> listVertexDataMax = new ArrayList<Float>();
+    ArrayList<Float> listVertexDataMin = new ArrayList<Float>();
     
     //////////////////////////////Cons/////////////////////////////////
     /**
@@ -86,5 +88,37 @@ public class Graph {
 	 */
 	public Edge getEdge(Integer idVertex1, Integer idVertex2) throws Exception {
 		return matrix.getEdges(idVertex1, idVertex2);
+	}
+	
+	public Float getVertexDataMax(Integer numData) {
+		return listVertexDataMax.get(numData);
+	}
+	
+	public Float getVertexDataMin(Integer numData) {
+		return listVertexDataMin.get(numData);
+	}
+	
+	/**
+	 * set newValue at index numData in listVertexDataMax if newValue > listVertexDataMax[numData]
+	 * @param numData
+	 * @param newValue
+	 */
+	public void setVertexDataMax(Integer numData, Float newValue) {
+		if (numData >= listVertexDataMax.size())
+			listVertexDataMax.add(numData, newValue);	
+		else if (newValue > listVertexDataMax.get(numData))
+			listVertexDataMax.set(numData, newValue);
+	}
+	
+	/**
+	 * set newValue at index numData in listVertexDataMax if newValue < listVertexDataMax[numData]
+	 * @param numData
+	 * @param newValue
+	 */
+	public void setVertexDataMin(Integer numData, Float newValue) {
+		if (numData >= listVertexDataMin.size())
+			listVertexDataMin.add(numData, newValue);	
+		else if (newValue < listVertexDataMin.get(numData))
+			listVertexDataMin.set(numData, newValue);	
 	}
 }
