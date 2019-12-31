@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map.Entry;
 
 import parser.Parser;
@@ -90,8 +91,27 @@ public class OperationsGraph {
 		return distance;
 	}
 
-	void extractSubgrah(Graph graph, Vertex nearestVertex) {
-
+	public Graph extractSubgraph(Graph graph, Vertex nearestVertex) {
+		Graph subGraph = new Graph();
+		Integer nvoisinage = 2;
+		ArrayList<Vertex> neighbour = new ArrayList<Vertex>();
+		ArrayList<Vertex> newNeighbour;
+		neighbour.add(nearestVertex);
+		for (int i = 0; i< nvoisinage; ++i) {
+			newNeighbour = new ArrayList<Vertex>();
+			for(Vertex vertex : neighbour) {
+				newNeighbour.addAll(graph.getNeighbour(vertex));
+				if(!graph.getListVertex().contains(vertex))
+					subGraph.addVertex(vertex);
+			}
+			neighbour = newNeighbour;
+		}
+		
+		for(Vertex vertex : neighbour) {
+			if(!graph.getListVertex().contains(vertex))
+				subGraph.addVertex(vertex);
+		}
+		return subGraph;
 	}
 
 	void mergeSubgraph(Graph mainGraph, Graph subGraph) {
