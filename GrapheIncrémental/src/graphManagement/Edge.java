@@ -47,6 +47,12 @@ public class Edge {
 	}
 
 	@Override
+	public int hashCode() {
+		int hashcode = (int)(idVertex1 * 0.314159265359 + idVertex2 * 0.161803398875) % 100000;
+		return hashcode;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -67,7 +73,5 @@ public class Edge {
 			return false;
 		return true;
 	}
-
-	
 	
 }

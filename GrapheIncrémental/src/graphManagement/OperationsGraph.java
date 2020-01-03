@@ -23,13 +23,14 @@ public class OperationsGraph {
 						graph.getVertexFromList(vertexIndex2));
 			}
 		}
+		
 		// choose the edge to draw ...
 		boolean draw = true;
-
 		for (int vertexIndex1 = 0; vertexIndex1 < graph.getNbVertices(); vertexIndex1++) {
 			for (int vertexIndex2 = vertexIndex1 + 1; vertexIndex2 < graph.getNbVertices(); vertexIndex2++) {
 				draw = true;
 				for (int i = 0; i < graph.getNbVertices(); i++) {
+					
 					if (i == vertexIndex1 || i == vertexIndex2) {
 						continue;
 					}
@@ -65,7 +66,7 @@ public class OperationsGraph {
 				}
 				if (draw) {
 					try {
-						graph.createEdge(vertexIndex1, vertexIndex2);
+						graph.createEdge(graph.getVertexFromList(vertexIndex1).getIdVertex(),graph.getVertexFromList(vertexIndex2).getIdVertex());
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -121,7 +122,8 @@ public class OperationsGraph {
 		ArrayList<Vertex> neighbour = new ArrayList<Vertex>();
 		ArrayList<Vertex> newNeighbour;
 		neighbour.add(nearestVertex);
-		for (int i = 0; i< nvoisinage; ++i) {
+		int i = 0;
+		while ( (i< nvoisinage || subGraph.getListVertex().size() < 10 ) && (subGraph.getListVertex().size() < graph.getNbVertices())  ) {
 			newNeighbour = new ArrayList<Vertex>();
 			for(Vertex vertex : neighbour) {
 				newNeighbour.addAll(graph.getNeighbours(vertex));
@@ -129,6 +131,7 @@ public class OperationsGraph {
 					subGraph.addVertex(vertex);
 			}
 			neighbour = newNeighbour;
+			 ++i;
 		}
 		
 		for(Vertex vertex : neighbour) {
@@ -155,10 +158,10 @@ public class OperationsGraph {
 				}
 			}
 		}
-		for (Entry<Double, Edge> edge : subGraph.getMatrix().getHashSet()) {
+		for (Entry<Edge, Boolean> edge : subGraph.getMatrix().getHashSet()) {
 			try {
 				// we copy the same edges of the subgraph in the main graph
-				mainGraph.createEdge(edge.getValue().getIdVertex1(), edge.getValue().getIdVertex2());
+				mainGraph.createEdge(edge.getKey().getIdVertex1(), edge.getKey().getIdVertex2());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -245,9 +248,9 @@ public class OperationsGraph {
 			fileWriter.write("(nb_nodes " + (graph.getNbVertices()) + ")\n");
 			fileWriter.write("(nodes 0.." + (graph.getNbVertices() - 1) + ")\n");
 			Integer indexEdge = 0;
-			for (Entry<Double, Edge> edge : graph.getMatrix().getHashSet()) {
-				fileWriter.write("(edge " + indexEdge + " " + edge.getValue().getIdVertex1() + " "
-						+ edge.getValue().getIdVertex2() + ")\n");
+			for (Entry<Edge, Boolean> edge : graph.getMatrix().getHashSet()) {
+				fileWriter.write("(edge " + indexEdge + " " + edge.getKey().getIdVertex1() + " "
+						+ edge.getKey().getIdVertex2() + ")\n");
 				++indexEdge;
 			}
 			

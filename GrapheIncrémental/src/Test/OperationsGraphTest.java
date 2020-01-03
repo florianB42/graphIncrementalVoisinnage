@@ -3,6 +3,7 @@
  */
 package Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 
 import org.junit.jupiter.api.*;
 
@@ -21,6 +22,7 @@ import java.util.Map.Entry;
  * @author ahlam
  *
  */
+@TestMethodOrder(OrderAnnotation.class)
 class OperationsGraphTest {
 
 	static Graph graph = mock(Graph.class);
@@ -154,6 +156,7 @@ class OperationsGraphTest {
 	}
 	
 	@Test
+	@Order(1)
 	void testGetNeighbours() {
 		
 		assertEquals(initialGraph.getNeighbours(vertex5), listNeiboursVertex5, "The neignbour's list is not good.");
@@ -164,6 +167,7 @@ class OperationsGraphTest {
 	 * Test method for {@link OperationsGraph#findNearest(Vertex, Graph)}.
 	 */
 	@Test
+	@Order(2)
 	void testFindNearest() {
 		OperationsGraph opGraph = new OperationsGraph();
 		vertex1.addData(12);
@@ -189,6 +193,7 @@ class OperationsGraphTest {
 	 * Test method for {@link OperationsGraph#extractSubgraph(Graph, Vertex)}.
 	 */
 	@Test
+	@Order(3)
 	void testExtractSubgraph() {
 		OperationsGraph opGraph = new OperationsGraph();
 		Graph graphRes = new Graph();
@@ -220,6 +225,7 @@ class OperationsGraphTest {
 	 * Test method for {@link OperationsGraph#mergeSubgraph(Graph, Graph)}.
 	 */
 	@Test
+	@Order(4)
 	void testMergeSubgraph() {
 		OperationsGraph opGraph = new OperationsGraph();
 		opGraph.mergeSubgraph(initialGraph, graphToMerge);
