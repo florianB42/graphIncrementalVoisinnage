@@ -1,5 +1,8 @@
 import java.io.FileNotFoundException;
 
+import graphManagement.Graph;
+import graphManagement.OperationsGraph;
+import graphManagement.Vertex;
 import parser.Parser;
 
 public class Main {

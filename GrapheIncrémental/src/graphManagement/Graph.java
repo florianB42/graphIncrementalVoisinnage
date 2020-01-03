@@ -1,3 +1,4 @@
+package graphManagement;
 import java.util.ArrayList;
 
 public class Graph {
@@ -133,12 +134,18 @@ public class Graph {
 			listVertexDataMin.set(numData, newValue);	
 	}
 	
-	public ArrayList<Vertex> getNeighbour(Vertex vertex) {
-		ArrayList<Vertex> neighbour = new ArrayList<Vertex>();
+	/**
+	 * 
+	 * @param vertex
+	 * @return the list of the "vertex" neighbours
+	 */
+	public ArrayList<Vertex> getNeighbours(Vertex vertex) {
+		ArrayList<Vertex> neighbours = new ArrayList<Vertex>();
 		for (Vertex vertexOfList : listVertex) {
 			if (matrix.getEdges(vertex.getIdVertex(), vertexOfList.getIdVertex()) != null)
-				neighbour.add(vertexOfList);
+				neighbours.add(vertexOfList);
 		}
-		return neighbour;
+		System.out.println("List of neighbours :" + neighbours);
+		return neighbours;
 	}
 }

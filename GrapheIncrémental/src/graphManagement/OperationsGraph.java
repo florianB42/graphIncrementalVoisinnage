@@ -1,3 +1,4 @@
+package graphManagement;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -123,7 +124,7 @@ public class OperationsGraph {
 		for (int i = 0; i< nvoisinage; ++i) {
 			newNeighbour = new ArrayList<Vertex>();
 			for(Vertex vertex : neighbour) {
-				newNeighbour.addAll(graph.getNeighbour(vertex));
+				newNeighbour.addAll(graph.getNeighbours(vertex));
 				if(!subGraph.getListVertex().contains(vertex))
 					subGraph.addVertex(vertex);
 			}
@@ -146,8 +147,8 @@ public class OperationsGraph {
 		for (Vertex vertex1 : subGraph.getListVertex()) {
 			for (Vertex vertex2 : subGraph.getListVertex()) {
 				try {
-					// we delete from the main graph the old edges whom vertices are in common with
-					// the subgraph vertices
+					/* we delete from the main graph the old edges whom vertices are in common with
+					 the subgraph vertices*/
 					mainGraph.deleteEdge(vertex1.getIdVertex(), vertex2.getIdVertex());
 				} catch (Exception e) {
 					// Nothing to do
