@@ -190,7 +190,8 @@ class OperationsGraphTest {
 	}
 
 	/**
-	 * Test method for {@link OperationsGraph#extractSubgraph(Graph, Vertex)}.
+	 * Test method for {@link OperationsGraph#extractSubgraph(Graph, Vertex)}.ù
+	 * ne passe plus car mtn ça marche qu'avec 10 vertices ou plus
 	 */
 	@Test
 	@Order(3)

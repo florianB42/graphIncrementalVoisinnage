@@ -77,19 +77,49 @@ public class OperationsGraph {
 	}
 
 	/**
-	 * This method search the nearest vertex from "vertex"
-	 * 
-	 * @param vertex
+	 * This method search the nearest vertex from "newVertex" 
+	 * by exploring all the vertices
+	 * @param newVertex :
+	 * 	 we want to find the nearest vertex from the new one
 	 * @param graph
-	 * @return the nearest vertex from "vertex"
+	 * @return the nearest vertex from "newVertex"
 	 */
-	public Vertex findNearest(Vertex vertex, Graph graph) {
+	public Vertex findNearestFullExplor(Vertex newVertex, Graph graph) {
 		double MinDist = Double.MAX_VALUE;
 		Vertex nearestVertex = null;
 		for (Vertex vertexLoop : graph.getListVertex()) {
-			if (calculDist(vertex, vertexLoop) < MinDist) {
-				MinDist = calculDist(vertex, vertexLoop);
+			if (calculDist(newVertex, vertexLoop) < MinDist) {
+				MinDist = calculDist(newVertex, vertexLoop);
 				nearestVertex = vertexLoop;
+			}
+		}
+		return nearestVertex;
+	}
+	
+	/**
+	 * This method search the nearest vertex from the new vertex to add
+	 * by exploring only the neighbour's of a vertex 
+	 * We start by choosing a random vertex of the graph,
+	 * then we look for the nearest vertex of this random vertex
+	 * among its neighbours
+	 * @param newVertex
+	 * @param graph
+	 * @return
+	 */
+	public Vertex findNearest(Vertex newVertex, Graph graph) {
+		int randomIndex = (int) (Math.random() * (graph.getListVertex().size() - 1));
+		Vertex nearestVertex = graph.getListVertex().get(randomIndex); //a random vertex of the graph
+		double MinDist = Double.MAX_VALUE;
+		Vertex currentVertex = null;
+		while(nearestVertex != currentVertex) {
+			currentVertex = nearestVertex;
+			ArrayList<Vertex> listOfNeighbours = graph.getNeighbours(currentVertex);
+			listOfNeighbours.add(currentVertex);
+			for (Vertex vertexLoop : listOfNeighbours) {
+				if (calculDist(newVertex, vertexLoop) < MinDist) {
+					MinDist = calculDist(newVertex, vertexLoop);
+					nearestVertex = vertexLoop;
+				}
 			}
 		}
 		return nearestVertex;
