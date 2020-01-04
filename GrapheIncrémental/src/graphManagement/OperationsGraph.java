@@ -177,7 +177,7 @@ public class OperationsGraph {
 		while (parser.readLigne() != null) {
 			try {
 				Integer numData = 0;
-				parser.parserNext();
+				//parser.parserNext();
 				do {
 					graph.setVertexDataMax(numData, parser.parserFloat());
 					graph.setVertexDataMin(numData, parser.parserFloat());
@@ -210,8 +210,8 @@ public class OperationsGraph {
 				 * parser.parserNext(); } vertex.setCategory(parser.parserString()); return
 				 * vertex;
 				 */
-			vertex.setCategory(parser.parserString());
-			parser.parserNext();
+			//vertex.setCategory(parser.parserString());
+			//parser.parserNext();
 			do {
 				try {
 					newValue = (parser.parserFloat() - graph.getVertexDataMin(numData))
