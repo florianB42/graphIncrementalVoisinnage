@@ -2,11 +2,20 @@ package graphManagement;
 import java.util.ArrayList;
 
 public class Vertex {
+	/**
+	 * The id of the vertex
+	 */
 	private int idVertex;
+	/**
+	 * The list of data of the vertex
+	 */
 	private ArrayList<Float> listData = new ArrayList<Float>();
+	/**
+	 * The category of the vertex, it can be null
+	 */
 	String category;
 	
-	//////////////////////////////Cons///////////////////////////////////
+	//////////////////////////////Constructor///////////////////////////////////
 	/**
 	 * Constructor
 	 * @param idVertex
@@ -17,6 +26,7 @@ public class Vertex {
 	
 	//////////////////////////////Getters & setters///////////////////////////////////
 	/**
+	 * Getter
 	 * @return the idVertex
 	 */
 	public int getIdVertex() {
@@ -24,6 +34,7 @@ public class Vertex {
 	}
 
 	/**
+	 * Getter
 	 * @return the listData
 	 */
 	public ArrayList<Float> getListData() {
@@ -31,41 +42,36 @@ public class Vertex {
 	}
 	
 	/**
+	 * Getter
 	 * @return the size of listData
 	 */
-	public double getSizeList() {
+	public int getSizeList() {
 		return listData.size();
 	}
 	
 	/**
 	 * Gets data from the arrayList listData
-	 * @param rank
+	 * @param rank : the position of the data we want
 	 * @return data stored in the rank passed in parameters
 	 */
 	public float getData(int rank) {
 		return listData.get(rank);
 	}
 	
-	
 	/**
-	 * @param idVertex : the idVertex to set
+	 * Getter
+	 * @return the category
 	 */
-	public void setIdVertex(int idVertex) {
-		this.idVertex = idVertex;
+	public String getCategory() {
+		return category;
 	}
 	
 	/**
+	 * Setter
 	 * @param category : the category to set
 	 */
 	public void setCategory(String category) {
 		this.category = category;
-	}
-	
-	/**
-	 * @return the category in String
-	 */
-	public String getCategory() {
-		return category;
 	}
 	
 	//////////////////////////////Methods///////////////////////////////////
