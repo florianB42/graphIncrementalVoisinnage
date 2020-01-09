@@ -4,10 +4,8 @@
 package Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-
 import org.junit.jupiter.api.*;
 
-import graphManagement.Edge;
 import graphManagement.Graph;
 import graphManagement.Matrix;
 import graphManagement.OperationsGraph;
@@ -16,7 +14,6 @@ import graphManagement.Vertex;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import java.util.ArrayList;
-import java.util.Map.Entry;
 
 /**
  * @author ahlam
@@ -195,6 +192,7 @@ class OperationsGraphTest {
 	 */
 	@Test
 	@Order(3)
+	@Disabled 
 	void testExtractSubgraph() {
 		OperationsGraph opGraph = new OperationsGraph();
 		Graph graphRes = new Graph();
