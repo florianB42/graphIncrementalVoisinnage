@@ -132,10 +132,6 @@ public class OperationsGraph {
 				}
 			}
 		}
-		if (main.Main.getMode() >= 1) {
-			if (nearestVertex == findNearestFullExplor(newVertex, graph))
-				graph.incrementNbVerticesNearestExact();
-		}
 		return nearestVertex;
 	}
 

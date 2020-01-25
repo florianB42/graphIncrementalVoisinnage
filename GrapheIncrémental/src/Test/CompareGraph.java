@@ -9,33 +9,49 @@ import graphManagement.OperationsGraph;
 
 public class CompareGraph {
 	/**
-	 * This method takes as parameter two graph with the same vertices and create two graph:
-	 * the first have the missing edge of the "graphToCompare" compared to "referenceGraph"
-	 * the second have the extra edge of the "graphToCompare" compared to "referenceGraph"
+	 * This method takes as parameter two graph with the same vertices and create
+	 * two graph: the first have the missing edge of the "graphToCompare" compared
+	 * to "referenceGraph" the second have the extra edge of the "graphToCompare"
+	 * compared to "referenceGraph"
+	 * 
 	 * @param referenceGraph
 	 * @param graphToCompare
 	 */
-	public void createDifferenceGraph(Graph referenceGraph, Graph graphToCompare, String fileNameMissingGraph,String fileNameExtraGraph) {
-		Graph missingGraph = new Graph(new Matrix(referenceGraph.getMatrix()),referenceGraph.getListVertex());
-		Graph extraGraph = new Graph(new Matrix(graphToCompare.getMatrix()),referenceGraph.getListVertex());
+	public void calculConfusionMatrix(Graph referenceGraph, Graph graphToCompare) {
 		OperationsGraph opGraph = new OperationsGraph();
+		Edge getedEdge = null;
+		Integer correcteEdge = 0;
+		Integer missingCorrecteEdge = 0;
+		Integer correcteNoEdge = (referenceGraph.getNbVertices()-1) * (referenceGraph.getNbVertices()) / 2;// le nombre max d'arc
+		Integer falseEdge = 0;
 		
-		for(Entry<Edge,Boolean> edge : graphToCompare.getMatrix().getHashSet()) {
+		
+		for (Entry<Edge, Boolean> edge : referenceGraph.getMatrix().getHashSet()) {
 			try {
-				missingGraph.deleteEdge(edge.getKey().getIdVertex1(), edge.getKey().getIdVertex2());
+				getedEdge = graphToCompare.getEdge(edge.getKey().getIdVertex1(), edge.getKey().getIdVertex2());
+				if (getedEdge == null) {
+					missingCorrecteEdge++;
+				} else {
+					correcteEdge++;
+				}
 			} catch (Exception e) {
 				// nothing todo
 			}
 		}
-		opGraph.writeTulipFile(missingGraph, fileNameMissingGraph);
-		
-		for(Entry<Edge,Boolean> edge : referenceGraph.getMatrix().getHashSet()) {
+		for (Entry<Edge, Boolean> edge : graphToCompare.getMatrix().getHashSet()) {
 			try {
-				extraGraph.deleteEdge(edge.getKey().getIdVertex1(), edge.getKey().getIdVertex2());
+				getedEdge = referenceGraph.getEdge(edge.getKey().getIdVertex1(), edge.getKey().getIdVertex2());
+				if (getedEdge == null) {
+					falseEdge++;
+				}
 			} catch (Exception e) {
 				// nothing todo
 			}
 		}
-		opGraph.writeTulipFile(extraGraph, fileNameExtraGraph);
+		correcteNoEdge -= falseEdge;
+		correcteNoEdge -= missingCorrecteEdge;
+		correcteNoEdge -= correcteEdge;
+		System.out.println("Arcs corrects : " + correcteEdge + " | arcs manquant : " + missingCorrecteEdge);
+		System.out.println("Arcs faux : " + falseEdge + " | absences normales d'arcs : " + correcteNoEdge);
 	}
 }
