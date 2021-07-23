@@ -3,11 +3,11 @@ package main;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import Test.CompareGraph;
 import graphManagement.Graph;
 import graphManagement.OperationsGraph;
 import graphManagement.Vertex;
 import parser.Parser;
+import result.CompareGraph;
 
 public class Main {
 	static private Integer mode = 0;
